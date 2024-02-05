@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector} from "react-redux";
+import {getInitialCodeAll, socket} from "../socket";
+import {StoreStream} from "../data/StoreStream";
 
 export default function Lobby() {
+
     //hold list of code blocks from current state
     //offer selection of code blocks to user
     //pass selected code block data to CodeBlock component
+
+
     const codeBlocks = useSelector(state => state.codeBlocks);
     return (
         <div className="container mx-auto p-20 h-screen">

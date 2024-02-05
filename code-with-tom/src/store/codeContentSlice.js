@@ -3,8 +3,8 @@ import {createSlice} from "@reduxjs/toolkit";
 const initialState = {
     codeBlocks:[
         {
-        codeTitle: "",
-        codeContent: "",
+        title: "",
+        code: "",
     },
     ]
 }
@@ -17,13 +17,13 @@ const codeContentSlice = createSlice({
     reducers: {
         updateCodeContent: (state, action) => {
             state.codeBlocks.find(block =>
-                block.codeTitle === action.payload.title).codeContent = action.payload.code
+                block.title === action.payload?.title).code = action.payload?.code
         },
-        addCodeBlock: (state, action) => {
-            state.codeBlocks = [...state.codeBlocks, action.payload]
+        initCodeBlocks: (state, action) => {
+            state.codeBlocks = action.payload
         }
     },
 });
 
 export const codeContentReducer = codeContentSlice.reducer;
-export const {updateCodeContent, addCodeBlock} = codeContentSlice.actions;
+export const {updateCodeContent, initCodeBlocks} = codeContentSlice.actions;

@@ -1,4 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {socket} from "../socket";
 
 const initialState = {
     users:[],
@@ -14,9 +15,14 @@ const onlineUsersSlice = createSlice({
     reducers: {
         addUser: (state, action) => {
             state.users = [...state.users, action.payload]
-            state.mentorSocketId = state.users[0]
+        },
+        checkStatus: (state) => {
+            state.users = state.users.filter((user)=> user === socket.id && socket.connected)
+        },
+        addMentorUser: (state, action) => {
+            state.mentorSocketId = action.payload
         }
     },
 });
 export const onlineUsersReducer = onlineUsersSlice.reducer;
-export const {addUser} = onlineUsersSlice.actions;
+export const {addUser, checkStatus, addMentorUser} = onlineUsersSlice.actions;

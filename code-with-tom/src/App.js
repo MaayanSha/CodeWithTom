@@ -12,7 +12,7 @@ function App() {
   return (
       <Routes>
           <Route path="/" element={<Lobby />} />
-            <Route path="/codeblock/:id" element={<CodeBlock />} />
+            <Route path="/codeblock/:title" element={<CodeBlock />} />
       </Routes>
   );
 }
