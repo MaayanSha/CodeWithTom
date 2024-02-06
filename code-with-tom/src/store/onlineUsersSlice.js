@@ -13,11 +13,8 @@ const onlineUsersSlice = createSlice({
     name: "onlineUsers",
     initialState,
     reducers: {
-        addUser: (state, action) => {
-            state.users = [...state.users, action.payload]
-        },
-        checkStatus: (state) => {
-            state.users = state.users.filter((user)=> user === socket.id && socket.connected)
+        addUsers: (state, action) => {
+            state.users = action.payload
         },
         addMentorUser: (state, action) => {
             state.mentorSocketId = action.payload
@@ -25,4 +22,4 @@ const onlineUsersSlice = createSlice({
     },
 });
 export const onlineUsersReducer = onlineUsersSlice.reducer;
-export const {addUser, checkStatus, addMentorUser} = onlineUsersSlice.actions;
+export const {addUsers, addMentorUser} = onlineUsersSlice.actions;

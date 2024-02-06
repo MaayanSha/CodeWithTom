@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {addCodeBlock, initCodeBlocks, updateCodeContent} from "../store/codeContentSlice";
-import {addMentorUser, addUser, checkStatus} from "../store/onlineUsersSlice";
+import {addMentorUser, addUser, addUsers, checkStatus} from "../store/onlineUsersSlice";
 import {socket} from "../socket";
 
 export const StoreStream = () => {
@@ -15,9 +15,13 @@ export const StoreStream = () => {
     })
     // Listen for the 'connect' event, and add the user to the store
     socket.on('connect', () => {
-        dispatch(addUser(socket.id))
         socket.emit('get-code-all');
         socket.emit('get-mentor')
+        socket.emit('get-users')
+    })
+
+    socket.on('sent-users', (users) => {
+        dispatch(addUsers(users))
     })
 
 // Listen for the 'init-code' event
@@ -31,5 +35,4 @@ export const StoreStream = () => {
     socket.on('code-changed', (code) => {
        dispatch(updateCodeContent(code))
     })
-
 }

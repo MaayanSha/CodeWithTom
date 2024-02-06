@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import "highlight.js/styles/base16/espresso.css";
 import Editor from '@monaco-editor/react';
@@ -7,30 +7,23 @@ import {socket} from "../../socket";
 
 export default function CodeSandbox({title}) {
     const dispatch = useDispatch();
-    const [code, setCode] = React.useState("");
     const [hasChanged, setHasChanged] = React.useState(false);
     //fetch code block data from state by title
     const codeBlock = useSelector(state => state.codeContent.codeBlocks?.find(block =>
         block.title === title));
+
     function handleEditorChange(value, event){
+        const newCode = {title: title, code: value}
         //update code block in state
-        setCode(value);
-        setHasChanged(true);
+        dispatch(updateCodeContent(newCode))
+        socket.emit('send-code-change', newCode)
     }
 
-    //emit code change to server every 2 seconds
-    setTimeout(() => {
-        if (hasChanged){
-            socket.emit('send-code-change', codeBlock)
-            dispatch(updateCodeContent({title: title, code: code}))
-            setHasChanged(false)
-        }
-    }, 3000)
 
     //save code block to db every 5 minutes
-    // setTimeout(() => {
-    //     socket.emit('save-code-block', codeBlock)
-    // }, 300000)
+    setTimeout(() => {
+        socket.emit('save-code-block', codeBlock)
+    }, 300000)
 
     return (
         <Editor

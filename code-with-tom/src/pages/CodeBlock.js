@@ -1,9 +1,10 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useMemo} from "react";
 import {useSelector} from "react-redux";
 import {getInitialCodeByTitle, socket} from "../socket";
 import CodeSandbox from "../components/code/CodeSandbox";
 import {StoreStream} from "../data/StoreStream";
 import ReadOnlyCodeView from "../components/code/ReadOnlyCodeView";
+import {checkStatus} from "../store/onlineUsersSlice";
 
 export default function CodeBlock({match}) {
     //call the StoreStream component to listen for socket events
@@ -20,6 +21,10 @@ export default function CodeBlock({match}) {
 
     const onlineUsers = useSelector(state => state.onlineUsers.users);
     const filteredUsers = [...new Set(onlineUsers)]
+
+    setInterval(() => {
+        socket.emit('get-users')
+    }, 5000)
 
     return(
         <div className="container mx-auto px-36 pt-20 h-screen bg-slate-50">
