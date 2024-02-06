@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useSelector} from "react-redux";
-import {getInitialCodeAll, socket} from "../socket";
-import {StoreStream} from "../data/StoreStream";
+import {icons} from "../components/UI/icons";
+import {ui} from "../components/UI/lobbyUI";
 
 export default function Lobby() {
 
@@ -11,15 +11,19 @@ export default function Lobby() {
 
 
     const codeBlocks = useSelector(state => state.codeBlocks);
+    const titles = ["Asynchronous Code", "Synchronous", "Promise", "Callback", "Async/Await"]
     return (
-        <div className="container mx-auto p-20 h-screen">
-            <div className="text-start text-2xl font-bold h-20">Choose a block code:</div>
-            <div className="grid grid-cols-3 gap-1 place-content-evenly h-4/5 place-items-center">
-                <div className="size-40 border-double border-4">01</div>
-                <div className="size-40 border-double border-4">02</div>
-                <div className="size-40 border-double border-4">03</div>
-                <div className="size-40 border-double border-4">04</div>
-                <div className="size-40 border-double border-4">05</div>
+        <div className={ui.lobby_body}>
+            <div className={ui.lobby_title}>Choose a code block:</div>
+            <div className={ui.code_grid}>
+                {titles.map((title, index) => {
+                    return (
+                        <div key={index} className={ui.codeblock}>
+                            <a href={`/codeblock/${title}`} className={ui.link}>{title}</a>
+                            {icons[title]}
+                        </div>
+                    )
+                })}
             </div>
         </div>
     );

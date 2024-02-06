@@ -1,18 +1,20 @@
-import React, {useEffect, useMemo} from "react";
+import React from "react";
 import {useSelector} from "react-redux";
 import {getInitialCodeByTitle, socket} from "../socket";
 import CodeSandbox from "../components/code/CodeSandbox";
 import {StoreStream} from "../data/StoreStream";
 import ReadOnlyCodeView from "../components/code/ReadOnlyCodeView";
-import {checkStatus} from "../store/onlineUsersSlice";
+import {useParams} from "react-router-dom";
+import {icons} from "../components/UI/icons";
+import {codeui} from "../components/UI/codeblockUI";
 
-export default function CodeBlock({match}) {
+export default function CodeBlock() {
     //call the StoreStream component to listen for socket events
-    StoreStream();
+    //StoreStream();
     //call the socket to get the current code block
     //getInitialCodeByTitle(match.params.title)
     //get code block id from url to pass it to the CodeSandbox component
-    //const {title} = match.params || "first";
+    const {title} = useParams();
 
     //check if user is mentor to determine state
     //return read-only code block if user is the mentor
@@ -20,26 +22,28 @@ export default function CodeBlock({match}) {
     const isMentor = socket.id === mentorSocketId;
 
     const onlineUsers = useSelector(state => state.onlineUsers.users);
-    const filteredUsers = [...new Set(onlineUsers)]
-
-    setInterval(() => {
-        socket.emit('get-users')
-    }, 5000)
+    //const filteredUsers = [...new Set(onlineUsers)]
+    const filteredUsers = ["user1", "user2", "user3"]
+    // setInterval(() => {
+    //     socket.emit('get-users')
+    // }, 5000)
 
     return(
-        <div className="container mx-auto px-36 pt-20 h-screen bg-slate-50">
-            <div className="text-start text-2xl font-bold h-20">
-                Code Block
+        <div className={codeui.container}>
+            <div className={codeui.title}>
+                Code Block: {title}
             </div>
-            <div className="flex columns-2 gap-3 h-5/6">
-                <div className="flex-grow flex">
-                    {isMentor? <ReadOnlyCodeView title={"Async/Await"}/> : <CodeSandbox title={"Async/Await"}/>}
+            <div className={codeui.flex}>
+                <div className={codeui.codebox}>
+                    {isMentor? <ReadOnlyCodeView title={title}/> : <CodeSandbox title={title}/>}
                 </div>
-                <div className="flex-none w-1/3 border-2">
-                    <h4>Online Users:</h4>
+                <div className={codeui.userbox}>
+                    <h4 className={codeui.h4}>Online Users</h4>
                     {filteredUsers?.map((user, index) => {
                         return (
-                                <div> 🟢 {user}</div>
+                            <div className={codeui.onlineUsers}>
+                                {icons.onlineUser}  {user === mentorSocketId? "Mentor" : "Anonymous User"}
+                                </div>
                         )
                     })}
                 </div>

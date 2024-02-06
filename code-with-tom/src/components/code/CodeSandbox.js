@@ -27,7 +27,7 @@ export default function CodeSandbox({title}) {
 
     return (
         <Editor
-            height="90vh"
+            height="100%"
             defaultLanguage="javascript"
             theme="vs-dark"
             value={codeBlock?.code}
@@ -37,7 +37,6 @@ export default function CodeSandbox({title}) {
                 fontSize: 14,
                 minimap: {enabled: false},
                 wordWrap: "on",
-
             }
             }
         />
