@@ -7,45 +7,29 @@ import ReadOnlyCodeView from "../components/code/ReadOnlyCodeView";
 import {useParams} from "react-router-dom";
 import {icons} from "../components/UI/icons";
 import {codeui} from "../components/UI/codeblockUI";
+import {Popup} from "../components/UI/Popup";
+import {UserView} from "../components/users/UserView";
 
 export default function CodeBlock() {
-    //call the StoreStream component to listen for socket events
-    //StoreStream();
-    //call the socket to get the current code block
-    //getInitialCodeByTitle(match.params.title)
     //get code block id from url to pass it to the CodeSandbox component
     const {title} = useParams();
-
-    //check if user is mentor to determine state
+    //check if the current user is the mentor
     //return read-only code block if user is the mentor
     const mentorSocketId = useSelector(state => state.onlineUsers.mentorSocketId);
     const isMentor = socket.id === mentorSocketId;
-
-    const onlineUsers = useSelector(state => state.onlineUsers.users);
-    //const filteredUsers = [...new Set(onlineUsers)]
-    const filteredUsers = ["user1", "user2", "user3"]
-    // setInterval(() => {
-    //     socket.emit('get-users')
-    // }, 5000)
 
     return(
         <div className={codeui.container}>
             <div className={codeui.title}>
                 Code Block: {title}
             </div>
+            <Popup />
             <div className={codeui.flex}>
                 <div className={codeui.codebox}>
                     {isMentor? <ReadOnlyCodeView title={title}/> : <CodeSandbox title={title}/>}
                 </div>
                 <div className={codeui.userbox}>
-                    <h4 className={codeui.h4}>Online Users</h4>
-                    {filteredUsers?.map((user, index) => {
-                        return (
-                            <div className={codeui.onlineUsers}>
-                                {icons.onlineUser}  {user === mentorSocketId? "Mentor" : "Anonymous User"}
-                                </div>
-                        )
-                    })}
+                    <UserView />
                 </div>
             </div>
         </div>

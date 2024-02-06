@@ -1,19 +1,24 @@
 import './App.css';
-import {useState} from "react";
-import {socket} from "./socket";
 import Lobby from "./pages/Lobby";
 import CodeBlock from "./pages/CodeBlock";
 import {Route, Routes} from "react-router-dom";
-import {useSelector} from "react-redux";
+import { ErrorBoundary } from 'react-error-boundary'
+import {FallbackErrorPage} from "./errorHandling/FallbackErrorPage";
+import {StoreStream} from "./data/StoreStream";
 
 function App() {
-  //const [isConnected, setIsConnected] = useState(socket.connected);
-  const onlineUsers = useSelector(state => state.onlineUsers.users);
+    //call the StoreStream component to listen for socket events
+    StoreStream();
+
   return (
+      <div className="App">
+      <ErrorBoundary FallbackComponent={FallbackErrorPage}>
       <Routes>
           <Route path="/" element={<Lobby />} />
           <Route path="/codeblock/:title" element={<CodeBlock />} />
       </Routes>
+      </ErrorBoundary>
+      </div>
   );
 }
 

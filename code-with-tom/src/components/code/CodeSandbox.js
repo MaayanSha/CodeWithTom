@@ -4,10 +4,10 @@ import "highlight.js/styles/base16/espresso.css";
 import Editor from '@monaco-editor/react';
 import {updateCodeContent} from "../../store/codeContentSlice";
 import {socket} from "../../socket";
+import {Toolbar} from "./Toolbar";
 
 export default function CodeSandbox({title}) {
     const dispatch = useDispatch();
-    const [hasChanged, setHasChanged] = React.useState(false);
     //fetch code block data from state by title
     const codeBlock = useSelector(state => state.codeContent.codeBlocks?.find(block =>
         block.title === title));
@@ -19,13 +19,17 @@ export default function CodeSandbox({title}) {
         socket.emit('send-code-change', newCode)
     }
 
-
     //save code block to db every 5 minutes
     setTimeout(() => {
         socket.emit('save-code-block', codeBlock)
     }, 300000)
 
+    function saveCodeToDb(){
+        socket.emit('save-code-block', codeBlock)
+    }
+
     return (
+        <>
         <Editor
             height="100%"
             defaultLanguage="javascript"
@@ -40,5 +44,7 @@ export default function CodeSandbox({title}) {
             }
             }
         />
+            <Toolbar saveCodeToDb={saveCodeToDb}/>
+        </>
     );
 }
