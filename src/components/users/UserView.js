@@ -1,5 +1,4 @@
 import {useSelector} from "react-redux";
-import {socket} from "../../socket";
 import {codeui} from "../UI/codeblockUI";
 import {icons} from "../UI/icons";
 import React from "react";

@@ -1,7 +1,7 @@
 import {BiErrorAlt} from "react-icons/bi";
 
 // FallbackErrorPage component, which will be displayed when an error occurs with the error
-export const FallbackErrorPage = ({error, resetErrorBoundary}) => {
+export const FallbackErrorPage = ({error}) => {
     return (
         <p>
             <h2><BiErrorAlt />
