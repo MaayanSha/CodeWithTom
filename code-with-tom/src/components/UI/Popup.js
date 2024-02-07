@@ -1,12 +1,9 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Modal, ModalBody} from "reactstrap";
-import {useDispatch} from "react-redux";
 import {socket} from "../../socket";
-import {addNicknames} from "../../store/onlineUsersSlice";
 export const Popup = () => {
     const inputRef = useRef();
     const [isOpen, setIsOpen] = useState(false);
-    const dispatch = useDispatch();
     const submitNickname = () => {
         if(inputRef.current.value){
             socket.emit('add-nickname', {socket_id: socket.id, nickname:inputRef.current.value})

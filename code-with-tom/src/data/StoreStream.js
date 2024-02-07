@@ -1,6 +1,6 @@
-import {useDispatch, useSelector} from "react-redux";
-import {addCodeBlock, initCodeBlocks, updateCodeContent} from "../store/codeContentSlice";
-import {addMentorUser, addNicknames, addRoom, addUser, addUsers, checkStatus} from "../store/onlineUsersSlice";
+import {useDispatch} from "react-redux";
+import {initCodeBlocks, updateCodeContent} from "../store/codeContentSlice";
+import {addMentorUser, addNicknames, addRoom, addUsers} from "../store/onlineUsersSlice";
 import {socket} from "../socket";
 
 export const StoreStream = () => {

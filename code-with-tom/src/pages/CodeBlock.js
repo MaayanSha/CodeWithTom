@@ -1,11 +1,10 @@
-import React, {useEffect, useLayoutEffect} from "react";
+import React, {useLayoutEffect} from "react";
 import {useSelector} from "react-redux";
 import {socket} from "../socket";
 import CodeSandbox from "../components/code/CodeSandbox";
 import ReadOnlyCodeView from "../components/code/ReadOnlyCodeView";
 import {useParams} from "react-router-dom";
 import {codeui} from "../components/UI/codeblockUI";
-import {Popup} from "../components/UI/Popup";
 import {UserView} from "../components/users/UserView";
 
 export default function CodeBlock() {
