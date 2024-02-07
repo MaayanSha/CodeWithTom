@@ -15,13 +15,16 @@ const onlineUsersSlice = createSlice({
     name: "onlineUsers",
     initialState,
     reducers: {
+        //users is an array of socketIds, no specified room
         addUsers: (state, action) => {
             state.users = action.payload
         },
+        //mentorSocketId is used to identify the mentor user
         addMentorUser: (state, action) => {
             state.mentorSocketId = action.payload
             state.users.push(action.payload)
         },
+        //nicknames are optional, push to array an object of {socketId, nickname}
         addNicknames: (state, action) => {
             state.nicknames.push(action.payload)
         },

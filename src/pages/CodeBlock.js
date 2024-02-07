@@ -16,10 +16,15 @@ export default function CodeBlock() {
     const mentorSocketId = useSelector(state => state.onlineUsers.rooms?.find(obj => obj.room === title)?.users[0]);
     const isMentor = socket.id === mentorSocketId;
 
+    //before the DOM is rendered, emit the 'join-room' event to join the room
+    // so that the user can receive the code content
     useLayoutEffect(() => {
         socket.emit('join-room', title)
     },[])
 
+    //render the code block and the user view.
+    // if the user is the mentor, render the read-only code view.
+    // if user is student, render the code sandbox
     return(
         <div className={codeui.container}>
             <div className={codeui.title}>

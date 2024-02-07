@@ -3,12 +3,13 @@ import {initCodeBlocks, updateCodeContent} from "../store/codeContentSlice";
 import {addMentorUser, addNicknames, addRoom, addUsers} from "../store/onlineUsersSlice";
 import {socket} from "../socket";
 
+// This function listens for events from the server and updates the store
 export const StoreStream = () => {
     const dispatch = useDispatch();
 
     // Listen for the 'connect' event, and add the user to the store
     socket.on('connect', () => {
-        console.log('connected')
+        console.log('connected to socket')
         socket.emit('get-code-all');
         socket.emit('get-users')
     })
@@ -20,12 +21,10 @@ export const StoreStream = () => {
 
     // listen for the online users to be sent from the server, and add them to the store
     socket.on('sent-users', (users) => {
-        console.log(users)
         dispatch(addUsers(users))
     })
 
     socket.on('sent-nicknames', (nicknames) => {
-        console.log(nicknames)
         dispatch(addNicknames(nicknames))
     })
 

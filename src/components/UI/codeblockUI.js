@@ -1,3 +1,5 @@
+
+// This file contains the styles for the codeblock component
 export const codeui = {
     "container": "container mx-auto pl-36 pt-20 h-screen bg-blend-darken text-slate-300 font-medium",
     "title": "text-start text-4xl font-extrabold h-20 tracking-wide",
