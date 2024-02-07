@@ -12,7 +12,7 @@ export default function CodeSandbox({title}) {
     const codeBlock = useSelector(state => state.codeContent.codeBlocks?.find(block =>
         block.title === title));
 
-    function handleEditorChange(value, event){
+    function handleEditorChange(value){
         const newCode = {title: title, code: value}
         //update code block in state
         dispatch(updateCodeContent(newCode))
