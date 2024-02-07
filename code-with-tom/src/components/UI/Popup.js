@@ -9,8 +9,7 @@ export const Popup = () => {
     const dispatch = useDispatch();
     const submitNickname = () => {
         if(inputRef.current.value){
-            dispatch(addNicknames({socket_id: socket.id, name:inputRef.current.value}))
-            //socket.emit('add-nickname', {socket_id: socket.id, name:inputRef.current.value})
+            socket.emit('add-nickname', {socket_id: socket.id, nickname:inputRef.current.value})
         }
         setIsOpen(false)
     }
@@ -29,6 +28,7 @@ export const Popup = () => {
 
     //return modal setup
     return(
+        <div>
         <Modal isOpen={isOpen} onClosed={submitNickname}>
             <ModalBody>
                 <div>
@@ -37,6 +37,7 @@ export const Popup = () => {
                 </div>
             </ModalBody>
         </Modal>
+        </div>
     )
 
 }

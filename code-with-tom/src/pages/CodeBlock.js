@@ -1,11 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useSelector} from "react-redux";
-import {getInitialCodeByTitle, socket} from "../socket";
+import {socket} from "../socket";
 import CodeSandbox from "../components/code/CodeSandbox";
-import {StoreStream} from "../data/StoreStream";
 import ReadOnlyCodeView from "../components/code/ReadOnlyCodeView";
 import {useParams} from "react-router-dom";
-import {icons} from "../components/UI/icons";
 import {codeui} from "../components/UI/codeblockUI";
 import {Popup} from "../components/UI/Popup";
 import {UserView} from "../components/users/UserView";
@@ -18,18 +16,24 @@ export default function CodeBlock() {
     const mentorSocketId = useSelector(state => state.onlineUsers.mentorSocketId);
     const isMentor = socket.id === mentorSocketId;
 
+    useEffect(() => {
+        socket.emit('join-room', title)
+    },[])
+
     return(
         <div className={codeui.container}>
             <div className={codeui.title}>
                 Code Block: {title}
             </div>
-            <Popup />
+            <div className="fixed top-0 right-0 p-24">
+                <Popup />
+            </div>
             <div className={codeui.flex}>
                 <div className={codeui.codebox}>
                     {isMentor? <ReadOnlyCodeView title={title}/> : <CodeSandbox title={title}/>}
                 </div>
                 <div className={codeui.userbox}>
-                    <UserView />
+                    <UserView title={title}/>
                 </div>
             </div>
         </div>

@@ -5,6 +5,7 @@ const initialState = {
     users:[],
     mentorSocketId:null,
     nicknames: [],
+    rooms:[]
 }
 
 // Create a slice for the currently online users
@@ -23,9 +24,12 @@ const onlineUsersSlice = createSlice({
             state.users.push(action.payload)
         },
         addNicknames: (state, action) => {
-            state.nicknames = action.payload
+            state.nicknames.push(action.payload)
+        },
+        addRoom: (state, action) => {
+            state.rooms.push(action.payload)
         }
     },
 });
 export const onlineUsersReducer = onlineUsersSlice.reducer;
-export const {addUsers, addMentorUser, addNicknames} = onlineUsersSlice.actions;
+export const {addUsers, addMentorUser, addNicknames, addRoom} = onlineUsersSlice.actions;

@@ -34,7 +34,7 @@ export default function CodeSandbox({title}) {
             height="100%"
             defaultLanguage="javascript"
             theme="vs-dark"
-            value={codeBlock?.code}
+            value={codeBlock? codeBlock?.code : "//Loading code..."}
             onChange={handleEditorChange}
             options={
             {

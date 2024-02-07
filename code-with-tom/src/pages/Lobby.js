@@ -1,28 +1,23 @@
-import React, {useEffect} from 'react';
-import {useSelector} from "react-redux";
-import {icons} from "../components/UI/icons";
+import React from 'react';
 import {ui} from "../components/UI/lobbyUI";
+import {LobbyTitleSelection} from "../components/lobby/LobbyTitleSelection";
+import {socket} from "../socket";
+import {SocketDisconnected} from "./SocketDisconnected";
 
 export default function Lobby() {
-    //hold list of code blocks from current state
-    //offer selection of code blocks to user
-    //pass selected code block data to CodeBlock component
-    const codeBlocks = useSelector(state => state.codeContent.codeBlocks);
-    const titles = codeBlocks?.map(block => block.title);
+    const connected = socket.connected
 
+    if (!connected) {
+        return (
+            <div className={ui.lobby_body}>
+                <SocketDisconnected />
+            </div>
+        )
+    }
     return (
         <div className={ui.lobby_body}>
             <div className={ui.lobby_title}>Choose a code block:</div>
-            <div className={ui.code_grid}>
-                {titles?.map((title, index) => {
-                    return (
-                        <div key={index} className={ui.codeblock}>
-                            <a href={`/codeblock/${title}`} className={ui.link}>{title}</a>
-                            {icons[title]}
-                        </div>
-                    )
-                })}
-            </div>
+                <LobbyTitleSelection />
         </div>
     );
 }

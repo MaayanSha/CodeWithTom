@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {addCodeBlock, initCodeBlocks, updateCodeContent} from "../store/codeContentSlice";
-import {addMentorUser, addUser, addUsers, checkStatus} from "../store/onlineUsersSlice";
+import {addMentorUser, addNicknames, addRoom, addUser, addUsers, checkStatus} from "../store/onlineUsersSlice";
 import {socket} from "../socket";
 
 export const StoreStream = () => {
@@ -21,6 +21,14 @@ export const StoreStream = () => {
     // listen for the online users to be sent from the server, and add them to the store
     socket.on('sent-users', (users) => {
         dispatch(addUsers(users))
+    })
+
+    socket.on('sent-nicknames', (nicknames) => {
+        dispatch(addNicknames(nicknames))
+    })
+
+    socket.on('user-joined-room', ({users,room}) => {
+        dispatch(addRoom({users,room}))
     })
 
     // Listen for the 'init-code' event
