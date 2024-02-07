@@ -1,12 +1,9 @@
 import {FaArrowsUpToLine, FaClockRotateLeft, FaCodeBranch} from "react-icons/fa6";
 import React from "react";
-import {FaGift, FaPlay, FaTruck} from "react-icons/fa";
-import {HiOutlineStatusOnline} from "react-icons/hi";
-import {TfiTimer} from "react-icons/tfi";
-import {IoCloudUploadSharp, IoPlayOutline} from "react-icons/io5";
-import {MdOutlineCloudUpload} from "react-icons/md";
-import {BsClock, BsCloudArrowUp} from "react-icons/bs";
-import {AiOutlineClockCircle} from "react-icons/ai";
+import {FaGift, FaTruck} from "react-icons/fa";
+import {IoPlayOutline} from "react-icons/io5";
+import {BsCloudArrowUp} from "react-icons/bs";
+import {RiJavascriptFill} from "react-icons/ri";
 
 const classNameIcons = "absolute bottom-10 left-20 top-26 size-10 group-hover:animate-bounce transition-duration-600 ease-in-out";
 const classNameUser = "rounded-full bg-green-400 h-2 w-2 left-2 mt-1.5 animate-ping transition-duration-1000 ease-in-out";
@@ -19,6 +16,6 @@ export const icons = {
     "DOM Manipulation": <FaCodeBranch className={classNameIcons}/>,
     "onlineUser": <span className={classNameUser}></span>,
     "runCode":<IoPlayOutline className={classNameUtilityButtons}/>,
-    "timer":<AiOutlineClockCircle className={classNameUtilityButtons}/>,
+    "javascript":<RiJavascriptFill className={classNameUtilityButtons}/>,
     "saveCode":<BsCloudArrowUp className={classNameUtilityButtons}/>,
 }
