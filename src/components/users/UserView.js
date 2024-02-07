@@ -19,9 +19,9 @@ export const UserView = ({title}) => {
                 <Popup />
                 : null}
             <h4 className={codeui.h4}>Online Users</h4>
-            {filteredUsers?.map((user) => {
+            {filteredUsers?.map((user, index) => {
                 return (
-                    <div className={codeui.onlineUsers}>
+                    <div key={index} className={codeui.onlineUsers}>
                         {icons.onlineUser}
                         {nicknames?.find(nickname => nickname.socket_id === user)?.nickname || "Anonymous User"}
                     </div>

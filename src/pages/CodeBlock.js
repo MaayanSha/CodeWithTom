@@ -20,7 +20,7 @@ export default function CodeBlock() {
     // so that the user can receive the code content
     useLayoutEffect(() => {
         socket.emit('join-room', title)
-    },[])
+    },[title])
 
     //render the code block and the user view.
     // if the user is the mentor, render the read-only code view.
