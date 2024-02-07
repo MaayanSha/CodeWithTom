@@ -19,7 +19,7 @@ export const UserView = ({title}) => {
                 <Popup />
                 : null}
             <h4 className={codeui.h4}>Online Users</h4>
-            {filteredUsers?.map((user, index) => {
+            {filteredUsers?.map((user) => {
                 return (
                     <div className={codeui.onlineUsers}>
                         {icons.onlineUser}
