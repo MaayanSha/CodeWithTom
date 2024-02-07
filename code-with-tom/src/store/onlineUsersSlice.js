@@ -27,7 +27,14 @@ const onlineUsersSlice = createSlice({
             state.nicknames.push(action.payload)
         },
         addRoom: (state, action) => {
-            state.rooms.push(action.payload)
+            //check if room does not exist
+            if(!state.rooms.find(room => room.room === action.payload.room)){
+                state.rooms.push(action.payload)
+            }
+            //find the object of the room to update
+            const roomIndex = state.rooms.findIndex(room => room.room === action.payload.room)
+            //update the users in the object
+            state.rooms[roomIndex].users = action.payload.users
         }
     },
 });

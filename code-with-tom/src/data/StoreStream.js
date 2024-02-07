@@ -20,10 +20,12 @@ export const StoreStream = () => {
 
     // listen for the online users to be sent from the server, and add them to the store
     socket.on('sent-users', (users) => {
+        console.log(users)
         dispatch(addUsers(users))
     })
 
     socket.on('sent-nicknames', (nicknames) => {
+        console.log(nicknames)
         dispatch(addNicknames(nicknames))
     })
 

@@ -3,6 +3,7 @@ import {socket} from "../../socket";
 import {codeui} from "../UI/codeblockUI";
 import {icons} from "../UI/icons";
 import React from "react";
+import {Popup} from "../UI/Popup";
 
 export const UserView = ({title}) => {
     // Get the online users in the current room from the store
@@ -11,8 +12,12 @@ export const UserView = ({title}) => {
     const filteredUsers = [...new Set(onlineUsers)]
     const nicknames = useSelector(state => state.onlineUsers.nicknames);
     // Display the online users
+    // if there are two users or more in the room, display the popup component and suggest adding a nickname
     return(
         <>
+            {filteredUsers.length > 1 ?
+                <Popup />
+                : null}
             <h4 className={codeui.h4}>Online Users</h4>
             {filteredUsers?.map((user, index) => {
                 return (

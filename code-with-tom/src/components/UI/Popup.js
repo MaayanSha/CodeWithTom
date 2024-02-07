@@ -28,16 +28,14 @@ export const Popup = () => {
 
     //return modal setup
     return(
-        <div>
         <Modal isOpen={isOpen} onClosed={submitNickname}>
-            <ModalBody>
-                <div>
-                    <h1>Welcome! you are now online. Would you like to enter a nickname? </h1>
-                    <p><input placeholder="try 'Velvet Thunder'" ref={inputRef} className="text-black" onKeyDown={closeModal}/></p>
-                </div>
+            <ModalBody className="text-black text-lg my-2 font-bold">
+                    <p>Yay! Another user is online too.</p>
+                        <p>Enter a name/nickname, so they would know who you are. Hit 'Enter' to apply </p>
+                    <p><input placeholder=" try 'Velvet Thunder'" ref={inputRef} className="text-black border-2 rounded-2xl h-10 mt-2" onKeyDown={closeModal}/></p>
+                <button onClick={()=>setIsOpen(false)} className="bg-red-500 text-white text-xs rounded-xl h-8 w-24 opacity-60 hover:opacity-100 mt-4">No, Thanks</button>
             </ModalBody>
         </Modal>
-        </div>
     )
 
 }
